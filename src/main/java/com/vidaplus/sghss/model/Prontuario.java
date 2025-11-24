@@ -1,5 +1,6 @@
 package com.vidaplus.sghss.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -19,5 +20,7 @@ public class Prontuario {
 
     @ManyToOne
     @JoinColumn(name = "paciente_id")
+    @JsonBackReference
     private Paciente paciente;
+
 }

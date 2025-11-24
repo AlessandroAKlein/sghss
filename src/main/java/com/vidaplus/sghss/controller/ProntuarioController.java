@@ -40,4 +40,17 @@ public class ProntuarioController {
         repo.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+    @GetMapping("/paciente/{id}")
+    public ResponseEntity<?> listarPorPaciente(@PathVariable Long id){
+        if (!pacienteRepo.existsById(id)) {
+            return ResponseEntity.badRequest().body("Paciente não encontrado");
+        }
+
+        List<Prontuario> prontuarios = repo.findByPacienteId(id);
+
+        return ResponseEntity.ok(prontuarios);
+    }
+
+
+
 }

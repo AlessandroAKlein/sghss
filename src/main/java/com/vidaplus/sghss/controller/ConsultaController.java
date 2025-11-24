@@ -60,4 +60,39 @@ public class ConsultaController {
         consultaRepo.deleteById(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}/cancelar")
+    public ResponseEntity<?> cancelar(@PathVariable Long id){
+        return consultaRepo.findById(id).map(c -> {
+            c.setStatus("CANCELADA");
+            consultaRepo.save(c);
+            return ResponseEntity.ok(c);
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}/realizar")
+    public ResponseEntity<?> realizar(@PathVariable Long id){
+        return consultaRepo.findById(id).map(c -> {
+            c.setStatus("REALIZADA");
+            consultaRepo.save(c);
+            return ResponseEntity.ok(c);
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/paciente/{id}")
+    public ResponseEntity<?> consultarPorPaciente(@PathVariable Long id){
+        List<Consulta> consultas = consultaRepo.findByPacienteId(id);
+        return ResponseEntity.ok(consultas);
+    }
+
+    @GetMapping("/profissional/{id}")
+    public ResponseEntity<?> consultarPorProfissional(@PathVariable Long id){
+        List<Consulta> consultas = consultaRepo.findByProfissionalId(id);
+        return ResponseEntity.ok(consultas);
+    }
+
+
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.vidaplus.sghss.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDate;
@@ -22,5 +23,7 @@ public class Paciente {
     private LocalDate dataNascimento;
 
     @OneToMany(mappedBy = "paciente", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Prontuario> prontuarios;
+
 }
